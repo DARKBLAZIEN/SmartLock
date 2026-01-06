@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+
+// Pages
+import Dashboard from './pages/Dashboard';
+import LockersPage from './pages/LockersPage';
+import ResidentsPage from './pages/ResidentsPage';
+import EventsPage from './pages/EventsPage';
 
 function App() {
-  const [count, setCount] = useState(0)
+  // Simple Placeholder for Settings
+  const Settings = () => (
+    <div className="p-8">
+      <h2 className="text-2xl font-bold mb-4">Settings</h2>
+      <p className="text-gray-500">System configuration placeholders...</p>
+    </div>
+  );
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/lockers" element={<LockersPage />} />
+        <Route path="/residents" element={<ResidentsPage />} />
+        <Route path="/events" element={<EventsPage />} />
+        <Route path="/settings" element={<Settings />} /> {/* Inline for now */}
+
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
